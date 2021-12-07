@@ -1,4 +1,11 @@
-import { act, getAllByTestId, render } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  getAllByTestId,
+  getByTestId,
+  render,
+} from "@testing-library/react";
+import { unmountComponentAtNode } from "react-dom";
 import apiClient from "../services/apiClient";
 import Todos from "./Todos";
 
@@ -64,4 +71,18 @@ it("should show todos", () => {
   const todos = getAllByTestId(container, "todo");
 
   expect(todos.length).toBeGreaterThan(0);
+});
+
+it("should show counter", () => {
+  fireEvent.click(getByTestId(container, "item-1"));
+  fireEvent.click(getByTestId(container, "item-2"));
+  fireEvent.click(getByTestId(container, "item-3"));
+
+  fireEvent.click(getByTestId(container, "button"));
+
+  expect(getByTestId(container, "counter").textContent).toBe("3");
+});
+
+afterEach(() => {
+  unmountComponentAtNode(container);
 });

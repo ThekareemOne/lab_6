@@ -3,10 +3,20 @@ import apiClient from "../services/apiClient";
 
 export default function Todos() {
   const [todoItems, setTodoItems] = useState([]);
+  const [counter, setCounter] = useState(0);
+  const [showCounter, setShowCounter] = useState(false);
 
   useEffect(() => {
     apiClient.getTodos(todoItems).then((items) => setTodoItems(items));
   }, []);
+
+  const handleChange = (event) => {
+    if (event.target.checked) {
+      setCounter(counter + 1);
+    } else {
+      setCounter(counter - 1);
+    }
+  };
 
   return (
     <div>
@@ -21,11 +31,13 @@ export default function Todos() {
                     type="checkbox"
                     className="custom-control-input"
                     style={{ marginRight: "10px" }}
-                    id="customCheck1"
+                    id={`item-${item.id}`}
+                    data-testid={`item-${item.id}`}
+                    onChange={handleChange}
                   />
                   <label
                     className="custom-control-label"
-                    htmlFor="customCheck1"
+                    htmlFor={`item-${item.id}`}
                   >
                     {item.title}
                   </label>
@@ -34,6 +46,20 @@ export default function Todos() {
             ))}
           </ul>
         </div>
+      </div>
+      <div className="row justify-content-center px-5 my-5">
+        <button
+          className="btn btn-primary"
+          data-testid="button"
+          onClick={() => setShowCounter(true)}
+        >
+          Count Checked
+        </button>
+        {showCounter && (
+          <p data-testid="counter" className="text-center">
+            {counter}
+          </p>
+        )}
       </div>
     </div>
   );
