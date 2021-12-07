@@ -25,22 +25,15 @@ export default function Todos() {
           <h5 className="card-title">Todos</h5>
           <ul className="list-group list-group-flush">
             {todoItems.map((item) => (
-              <li className="list-group-item" data-testid="todo" key={item.id}>
+              <li className="list-group-item" key={item.id}>
                 <div className="custom-control custom-checkbox">
                   <input
                     type="checkbox"
                     className="custom-control-input"
                     style={{ marginRight: "10px" }}
-                    id={`item-${item.id}`}
-                    data-testid={`item-${item.id}`}
                     onChange={handleChange}
                   />
-                  <label
-                    className="custom-control-label"
-                    htmlFor={`item-${item.id}`}
-                  >
-                    {item.title}
-                  </label>
+                  <label className="custom-control-label">{item.title}</label>
                 </div>
               </li>
             ))}
@@ -55,11 +48,7 @@ export default function Todos() {
         >
           Count Checked
         </button>
-        {showCounter && (
-          <p data-testid="counter" className="text-center">
-            {counter}
-          </p>
-        )}
+        {showCounter && <p className="text-center">{counter}</p>}
       </div>
     </div>
   );

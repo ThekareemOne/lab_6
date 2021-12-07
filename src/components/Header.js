@@ -24,10 +24,10 @@ export default function Header() {
               Home
             </a>
             <a className="nav-item nav-link" href="#">
-              Todos
+              Profile
             </a>
             <a className="nav-item nav-link" href="#">
-              Calculator
+              Settings
             </a>
           </div>
         </div>
